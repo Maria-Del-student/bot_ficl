@@ -62,7 +62,23 @@ def math(message):
 Сайт предмета: https://math-info.hse.ru/2024-25/Дискретная_математика''')
 
 # Языковая игра
-
+def languagegame(message):
+    bot.send_message(message.from_user.id, '''Привет! В этой игре тебе нужно будет отгадать язык по одному предложению. После каждой неудачной попытки тебе будет предлагаться подсказка. Всего у тебя 3 попытки. 
+Начнём игру?''')
+    bot.register_next_step_handler(message, main)
+def main(message):
+    if message.text.lower() == 'да' or message.text.lower() == 'конечно':
+        all_func = [start_english, start_espanol, start_chinese, start_french, start_japanese, start_korean, start_sanskrit, start_arabic, start_gypsy, start_georgian, start_armenian, start_german, start_polish, start_hebrew, start_hungarian, start_greek, start_finnish, start_russian, start_euskara, start_nahuatl]
+        get_random = random.choice(all_func)
+        return get_random(message)
+    else:
+        bot.send_message(message.from_user.id, 'Хорошо! Хочешь поиграть во что-то другое? Напиши /games')
+def continue_game(message):
+    if message.text.lower() == "да" or message.text.lower() == "конечно":
+        bot.send_message(message.from_user.id, "Напиши /language")
+        bot.register_next_step_handler(message, main)
+    else:
+        bot.send_message(message.from_user.id, 'Спасибо за игру! Пока!')
 
 # Виселица
 
